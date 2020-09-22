@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -24,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
     TextView sumTextView;
     TextView timerTextView;
     TextView resultTextView;
-    ConstraintLayout gameConstraintLayout;
+    //ConstraintLayout gameConstraintLayout;
     long timeInMilliSeconds = 30000;
     long endTime;
 
@@ -181,12 +182,17 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState != null) {
 
-            //  Toast.makeText(this, "savedInstanceState != null)", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "savedInstanceState != null)", Toast.LENGTH_LONG).show();
 
             timeInMilliSeconds = savedInstanceState.getLong("timeInMilliSeconds",0);
             endTime = savedInstanceState.getLong("endTime",0);
             timeInMilliSeconds = endTime - System.currentTimeMillis();
-            startTimer();
+
+            Log.i("Seconds Left",String.valueOf(timeInMilliSeconds));
+
+            if(timeInMilliSeconds>0) {
+                startTimer();
+            }
 
         }
 
@@ -208,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
 
-            //Toast.makeText(this, "savedInstanceState == null", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "savedInstanceState == null", Toast.LENGTH_LONG).show();
 
             startTimer();
             generateQuestion();
@@ -232,14 +238,14 @@ public class MainActivity extends AppCompatActivity {
         outState.putIntegerArrayList("answersArrayList",answersArrayList);
         outState.putLong("timeInMilliSeconds",timeInMilliSeconds);
         outState.putLong("endTime",endTime);
-
+       // Toast.makeText(getApplicationContext(), "onSaveInstanceState", Toast.LENGTH_SHORT).show();
 
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        //Toast.makeText(getApplicationContext(), "onRestoreInstanceState", Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), "onRestoreInstanceState", Toast.LENGTH_SHORT).show();
         score = savedInstanceState.getInt("score", 0);
         noOfQuestionsAsked = savedInstanceState.getInt("noOfQuestionsAsked", 0);
         scoreTextView.setText(Integer.toString(score));

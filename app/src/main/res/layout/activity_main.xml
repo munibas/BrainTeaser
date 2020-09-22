@@ -150,7 +150,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:layout_marginBottom="133dp"
+        android:layout_marginBottom="100dp"
         android:background="#9C27B0"
         android:onClick="playAgain"
         android:text="Play Again"
