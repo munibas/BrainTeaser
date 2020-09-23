@@ -85,9 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
         noOfQuestionsAsked++;
         scoreTextView.setText(Integer.toString(score));
-
         answersArrayList.clear();
-
 
 
         for (int i=0;i<4;i++){
@@ -107,7 +105,6 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
-
         button0.setText(answersArrayList.get(0).toString());
         button1.setText(answersArrayList.get(1).toString());
         button2.setText(answersArrayList.get(2).toString());
@@ -119,9 +116,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void ChoosingAnswer(View view){
 
-
         Button buttonPressed = (Button) view;
-
 
         Log.i("button Pressed",buttonPressed.getTag().toString());
 
@@ -156,6 +151,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    public void resetValues(){
+
+        timerTextView.setText("0:00");
+        resultTextView.setText("Your Score: "+score+"/"+ noOfQuestionsAsked);
+        button0.setEnabled(false);
+        button1.setEnabled(false);
+        button2.setEnabled(false);
+        button3.setEnabled(false);
+
+
+
+    }
+
+
     public void playAgain(View view){
 
         playAgain.setVisibility(View.INVISIBLE);
@@ -169,6 +178,7 @@ public class MainActivity extends AppCompatActivity {
         button2.setEnabled(true);
         button3.setEnabled(true);
         timeInMilliSeconds = 30000;
+
         startTimer();
         generateQuestion();
 
@@ -179,24 +189,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        if (savedInstanceState != null) {
-
-            Toast.makeText(this, "savedInstanceState != null)", Toast.LENGTH_LONG).show();
-
-            timeInMilliSeconds = savedInstanceState.getLong("timeInMilliSeconds",0);
-            endTime = savedInstanceState.getLong("endTime",0);
-            timeInMilliSeconds = endTime - System.currentTimeMillis();
-
-            Log.i("Seconds Left",String.valueOf(timeInMilliSeconds));
-
-            if(timeInMilliSeconds>0) {
-                startTimer();
-            }
-
-        }
-
-
 
         sumTextView = (TextView) findViewById(R.id.sumTextView);
         timerTextView = (TextView) findViewById(R.id.timerTextView);
@@ -212,9 +204,37 @@ public class MainActivity extends AppCompatActivity {
         playAgain.setVisibility(View.INVISIBLE);
 
 
+        if (savedInstanceState != null) {
+
+           // Toast.makeText(this, "savedInstanceState != null", Toast.LENGTH_LONG).show();
+
+            timeInMilliSeconds = savedInstanceState.getLong("timeInMilliSeconds",0);
+            endTime = savedInstanceState.getLong("endTime",0);
+            timeInMilliSeconds = endTime - System.currentTimeMillis();
+
+            score = savedInstanceState.getInt("score", 0);
+            noOfQuestionsAsked = savedInstanceState.getInt("noOfQuestionsAsked", 0);
+
+            Log.i("Seconds Left",String.valueOf(timeInMilliSeconds));
+
+            if(timeInMilliSeconds>0) {
+                startTimer();
+            }
+            else{
+               // Toast.makeText(this, "playAgain", Toast.LENGTH_LONG).show();
+
+                playAgain.setVisibility(View.VISIBLE);
+                resetValues();
+            }
+
+        }
+
+
+
+
         if (savedInstanceState == null) {
 
-            Toast.makeText(this, "savedInstanceState == null", Toast.LENGTH_LONG).show();
+           // Toast.makeText(this, "savedInstanceState == null", Toast.LENGTH_LONG).show();
 
             startTimer();
             generateQuestion();
@@ -245,7 +265,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        Toast.makeText(getApplicationContext(), "onRestoreInstanceState", Toast.LENGTH_SHORT).show();
+
+       // Toast.makeText(getApplicationContext(), "onRestoreInstanceState", Toast.LENGTH_SHORT).show();
+
         score = savedInstanceState.getInt("score", 0);
         noOfQuestionsAsked = savedInstanceState.getInt("noOfQuestionsAsked", 0);
         scoreTextView.setText(Integer.toString(score));
