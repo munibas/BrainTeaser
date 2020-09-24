@@ -20,6 +20,7 @@
         android:gravity="center"
         android:text="0"
         android:textSize="40sp"
+        android:visibility="invisible"
         app:layout_constraintDimensionRatio="w,1:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -36,6 +37,7 @@
         android:text="30s"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="40sp"
+        android:visibility="invisible"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,6 +52,7 @@
         android:text="31 + 45"
         android:textSize="60sp"
         android:textStyle="bold"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/answerGridLayout"
         app:layout_constraintEnd_toStartOf="@+id/scoreTextView"
         app:layout_constraintHorizontal_bias="0.478"
@@ -63,6 +66,7 @@
         android:layout_height="196dp"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="32dp"
+        android:visibility="invisible"
         app:columnCount="2"
         app:layout_constraintBottom_toTopOf="@+id/resultTextView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -80,6 +84,7 @@
             android:tag="0"
             android:text="3"
             android:textSize="40sp"
+            android:visibility="invisible"
             app:layout_column="0"
             app:layout_columnWeight="1"
             app:layout_gravity="fill"
@@ -95,6 +100,7 @@
             android:tag="1"
             android:text="3"
             android:textSize="40sp"
+            android:visibility="invisible"
             app:layout_column="1"
             app:layout_columnWeight="1"
             app:layout_gravity="fill"
@@ -110,6 +116,7 @@
             android:tag="2"
             android:text="3"
             android:textSize="40sp"
+            android:visibility="invisible"
             app:layout_column="0"
             app:layout_columnWeight="1"
             app:layout_gravity="fill"
@@ -125,11 +132,13 @@
             android:tag="3"
             android:text="3"
             android:textSize="40sp"
+            android:visibility="invisible"
             app:layout_column="1"
             app:layout_columnWeight="1"
             app:layout_gravity="fill"
             app:layout_row="1"
             app:layout_rowWeight="1" />
+
     </androidx.gridlayout.widget.GridLayout>
 
     <TextView
@@ -139,6 +148,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginBottom="32dp"
         android:textSize="40sp"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/playAgainButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.506"
@@ -153,11 +163,23 @@
         android:layout_marginBottom="100dp"
         android:background="#9C27B0"
         android:onClick="playAgain"
-        android:text="Play Again"
+        android:text="Play"
         android:textSize="36sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/resultTextView" />
+
+    <TextView
+        android:id="@+id/welcomeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Welcome to Mental Math"
+        android:textSize="50sp"
+        app:layout_constraintBottom_toTopOf="@+id/playAgainButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

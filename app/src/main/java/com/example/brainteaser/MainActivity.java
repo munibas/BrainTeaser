@@ -8,10 +8,13 @@ import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.GridLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.sql.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,7 +28,8 @@ public class MainActivity extends AppCompatActivity {
     TextView sumTextView;
     TextView timerTextView;
     TextView resultTextView;
-    //ConstraintLayout gameConstraintLayout;
+    TextView welcomeTextView;
+    androidx.gridlayout.widget.GridLayout answerGridLayout;
     long timeInMilliSeconds = 30000;
     long endTime;
 
@@ -36,7 +40,9 @@ public class MainActivity extends AppCompatActivity {
     Button button3;
     Button playAgain;
 
-    ArrayList<Integer> answersArrayList = new ArrayList<Integer>();
+    boolean playButtonPressed = false;
+
+    ArrayList<Integer> answersArrayList = new ArrayList<Integer>(Arrays.asList(0,0,0,0));
 
     CountDownTimer timer;
 
@@ -60,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
             public void onFinish() {
                 noOfQuestionsAsked--;
                 resultTextView.setText("Your Score: "+score+"/"+ noOfQuestionsAsked);
+                playAgain.setText("PLAY AGAIN");
                 playAgain.setVisibility(View.VISIBLE);
                 button0.setEnabled(false);
                 button1.setEnabled(false);
@@ -151,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void resetValues(){
+    public void disableButtons(){
 
         timerTextView.setText("0:00");
         resultTextView.setText("Your Score: "+score+"/"+ noOfQuestionsAsked);
@@ -160,14 +167,29 @@ public class MainActivity extends AppCompatActivity {
         button2.setEnabled(false);
         button3.setEnabled(false);
 
-
-
     }
 
+    public void visible() {
+        sumTextView.setVisibility(View.VISIBLE);
+        timerTextView.setVisibility(View.VISIBLE);
+        scoreTextView.setVisibility(View.VISIBLE);
+        resultTextView.setVisibility(View.VISIBLE);
+        answerGridLayout.setVisibility(View.VISIBLE);
+
+        button0.setVisibility(View.VISIBLE);
+        button1.setVisibility(View.VISIBLE);
+        button2.setVisibility(View.VISIBLE);
+        button3.setVisibility(View.VISIBLE);
+    }
 
     public void playAgain(View view){
 
+        playButtonPressed = true;
+        welcomeTextView.setVisibility((View.INVISIBLE));
+        playAgain.setText("PLAY AGAIN");
         playAgain.setVisibility(View.INVISIBLE);
+        visible();
+
         score = 0;
         noOfQuestionsAsked = 0;
         timerTextView.setText("30s");
@@ -190,10 +212,13 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        welcomeTextView = (TextView) findViewById(R.id.welcomeTextView);
         sumTextView = (TextView) findViewById(R.id.sumTextView);
         timerTextView = (TextView) findViewById(R.id.timerTextView);
         scoreTextView = (TextView) findViewById(R.id.scoreTextView);
         resultTextView = (TextView) findViewById(R.id.resultTextView);
+
+        answerGridLayout =  findViewById(R.id.answerGridLayout);
 
         playAgain = (Button) findViewById(R.id.playAgainButton);
         button0 = (Button) findViewById(R.id.button0);
@@ -201,47 +226,63 @@ public class MainActivity extends AppCompatActivity {
         button2 = (Button) findViewById(R.id.button2);
         button3 = (Button) findViewById(R.id.button3);
 
-        playAgain.setVisibility(View.INVISIBLE);
+        welcomeTextView.setVisibility((View.VISIBLE));
+        playAgain.setVisibility(View.VISIBLE);
 
 
-        if (savedInstanceState != null) {
+        if ((savedInstanceState == null) && (playButtonPressed==false)) {
 
-           // Toast.makeText(this, "savedInstanceState != null", Toast.LENGTH_LONG).show();
+            //Toast.makeText(this, "savedInstanceState == null", Toast.LENGTH_LONG).show();
+            Log.i("playButtonPressedC", String.valueOf(playButtonPressed));
+            Log.i("onCreate()","savedInstanceState == null && (playButtonPressed==false)");
 
-            timeInMilliSeconds = savedInstanceState.getLong("timeInMilliSeconds",0);
-            endTime = savedInstanceState.getLong("endTime",0);
-            timeInMilliSeconds = endTime - System.currentTimeMillis();
-
-            score = savedInstanceState.getInt("score", 0);
-            noOfQuestionsAsked = savedInstanceState.getInt("noOfQuestionsAsked", 0);
-
-            Log.i("Seconds Left",String.valueOf(timeInMilliSeconds));
-
-            if(timeInMilliSeconds>0) {
-                startTimer();
-            }
-            else{
-               // Toast.makeText(this, "playAgain", Toast.LENGTH_LONG).show();
-
-                playAgain.setVisibility(View.VISIBLE);
-                resetValues();
-            }
+            welcomeTextView.setVisibility((View.VISIBLE));
 
         }
 
+        else if (savedInstanceState != null){
+
+            playButtonPressed = savedInstanceState.getBoolean("playButtonPressed",false);
+            Log.i("playButtonPressedR", String.valueOf(playButtonPressed));
+
+            if (playButtonPressed==false){
+
+                welcomeTextView.setVisibility((View.VISIBLE));
+
+                Log.i("playButtonPressedC", String.valueOf(playButtonPressed));
+                Log.i("onCreate()","(savedInstanceState != null) && (playButtonPressed==false)");
+             }else{
+                welcomeTextView.setVisibility((View.INVISIBLE));
+                Log.i("playButtonPressedC", String.valueOf(playButtonPressed));
+                Log.i("onCreate()","(savedInstanceState != null) && (playButtonPressed==true)");
 
 
+                welcomeTextView.setVisibility(View.INVISIBLE);
 
-        if (savedInstanceState == null) {
+                timeInMilliSeconds = savedInstanceState.getLong("timeInMilliSeconds",0);
+                endTime = savedInstanceState.getLong("endTime",0);
+                timeInMilliSeconds = endTime - System.currentTimeMillis();
 
-           // Toast.makeText(this, "savedInstanceState == null", Toast.LENGTH_LONG).show();
+                score = savedInstanceState.getInt("score", 0);
+                noOfQuestionsAsked = savedInstanceState.getInt("noOfQuestionsAsked", 0);
 
-            startTimer();
-            generateQuestion();
+                Log.i("Seconds Left",String.valueOf(timeInMilliSeconds));
 
+                visible();
 
+                if(timeInMilliSeconds>0) {
+                    playAgain.setVisibility(View.INVISIBLE);
+                    startTimer();
+                }
+                else{
+                    // Toast.makeText(this, "playAgain", Toast.LENGTH_LONG).show();
+                    playAgain.setText("PLAY AGAIN");
+                    playAgain.setVisibility(View.VISIBLE);
+                    disableButtons();
+                }
+
+            }
         }
-
 
     }
 
@@ -258,7 +299,8 @@ public class MainActivity extends AppCompatActivity {
         outState.putIntegerArrayList("answersArrayList",answersArrayList);
         outState.putLong("timeInMilliSeconds",timeInMilliSeconds);
         outState.putLong("endTime",endTime);
-       // Toast.makeText(getApplicationContext(), "onSaveInstanceState", Toast.LENGTH_SHORT).show();
+        outState.putBoolean("playButtonPressed",playButtonPressed);
+       //Toast.makeText(getApplicationContext(), "onSaveInstanceState", Toast.LENGTH_SHORT).show();
 
     }
 
@@ -266,8 +308,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
 
-       // Toast.makeText(getApplicationContext(), "onRestoreInstanceState", Toast.LENGTH_SHORT).show();
-
+       //Toast.makeText(getApplicationContext(), "onRestoreInstanceState", Toast.LENGTH_SHORT).show();
+        Log.i("Seconds Left","onRestoreInstanceState");
         score = savedInstanceState.getInt("score", 0);
         noOfQuestionsAsked = savedInstanceState.getInt("noOfQuestionsAsked", 0);
         scoreTextView.setText(Integer.toString(score));
@@ -277,7 +319,8 @@ public class MainActivity extends AppCompatActivity {
         answersArrayList = savedInstanceState.getIntegerArrayList("answersArrayList");
         timeInMilliSeconds = savedInstanceState.getLong("timeInMilliSeconds",0);
         endTime = savedInstanceState.getLong("endTime",0);
-
+        playButtonPressed = savedInstanceState.getBoolean("playButtonPressed",false);
+        Log.i("playButtonPressedR", String.valueOf(playButtonPressed));
 
         sumTextView.setText(a+ " + "+b);
         button0.setText(answersArrayList.get(0).toString());
