@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     androidx.gridlayout.widget.GridLayout answerGridLayout;
     long timeInMilliSeconds = 30000;
     long endTime;
+    String resultText = "";
 
 
     Button button0;
@@ -66,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
             public void onFinish() {
                 noOfQuestionsAsked--;
                 resultTextView.setText("Your Score: "+score+"/"+ noOfQuestionsAsked);
+                resultText = "Your Score: "+score+"/"+ noOfQuestionsAsked;
                 playAgain.setText("PLAY AGAIN");
                 playAgain.setVisibility(View.VISIBLE);
                 button0.setEnabled(false);
@@ -131,10 +133,12 @@ public class MainActivity extends AppCompatActivity {
 
         if (answer == Integer.parseInt(buttonPressed.getText().toString())) {
             resultTextView.setText("Correct!");
+            resultText = "Correct!";
             score++;
         }
         else {
             resultTextView.setText("Wrong!");
+            resultText = "Wrong";
         }
 
         scoreTextView.setText(Integer.toString(score));
@@ -186,7 +190,7 @@ public class MainActivity extends AppCompatActivity {
 
         playButtonPressed = true;
         welcomeTextView.setVisibility((View.INVISIBLE));
-        playAgain.setText("PLAY AGAIN");
+       // playAgain.setText("PLAY\nAGAIN");
         playAgain.setVisibility(View.INVISIBLE);
         visible();
 
@@ -300,6 +304,7 @@ public class MainActivity extends AppCompatActivity {
         outState.putLong("timeInMilliSeconds",timeInMilliSeconds);
         outState.putLong("endTime",endTime);
         outState.putBoolean("playButtonPressed",playButtonPressed);
+        outState.putString("resultTextview",resultText);
        //Toast.makeText(getApplicationContext(), "onSaveInstanceState", Toast.LENGTH_SHORT).show();
 
     }
@@ -320,6 +325,7 @@ public class MainActivity extends AppCompatActivity {
         timeInMilliSeconds = savedInstanceState.getLong("timeInMilliSeconds",0);
         endTime = savedInstanceState.getLong("endTime",0);
         playButtonPressed = savedInstanceState.getBoolean("playButtonPressed",false);
+        resultText = savedInstanceState.getString("resultTextview","");
         Log.i("playButtonPressedR", String.valueOf(playButtonPressed));
 
         sumTextView.setText(a+ " + "+b);
@@ -327,6 +333,7 @@ public class MainActivity extends AppCompatActivity {
         button1.setText(answersArrayList.get(1).toString());
         button2.setText(answersArrayList.get(2).toString());
         button3.setText(answersArrayList.get(3).toString());
+        resultTextView.setText(resultText);
 
     }
 }
