@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
                 noOfQuestionsAsked--;
                 resultTextView.setText("Your Score: "+score+"/"+ noOfQuestionsAsked);
                 resultText = "Your Score: "+score+"/"+ noOfQuestionsAsked;
-                playAgain.setText("PLAY AGAIN");
+                playAgain.setText("PLAY\nAGAIN");
                 playAgain.setVisibility(View.VISIBLE);
                 button0.setEnabled(false);
                 button1.setEnabled(false);
@@ -242,6 +242,7 @@ public class MainActivity extends AppCompatActivity {
 
             welcomeTextView.setVisibility((View.VISIBLE));
 
+
         }
 
         else if (savedInstanceState != null){
@@ -280,7 +281,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else{
                     // Toast.makeText(this, "playAgain", Toast.LENGTH_LONG).show();
-                    playAgain.setText("PLAY AGAIN");
+                    playAgain.setText("PLAY\nAGAIN");
                     playAgain.setVisibility(View.VISIBLE);
                     disableButtons();
                 }
