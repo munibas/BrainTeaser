@@ -190,12 +190,12 @@ public class MainActivity extends AppCompatActivity {
 
         playButtonPressed = true;
         welcomeTextView.setVisibility((View.INVISIBLE));
-       // playAgain.setText("PLAY\nAGAIN");
         playAgain.setVisibility(View.INVISIBLE);
         visible();
 
         score = 0;
         noOfQuestionsAsked = 0;
+        resultText = "";
         timerTextView.setText("30s");
         scoreTextView.setText("0");
         resultTextView.setText("");
