@@ -155,16 +155,16 @@ public class MainActivity extends AppCompatActivity {
 
         if (seconds<10) {
 
-            timerTextView.setText(minutes + ":0" + seconds);
+            timerTextView.setText("0" + seconds);
         }else
 
-            timerTextView.setText(minutes + ":" + seconds);
+            timerTextView.setText(Integer.toString(seconds));
     }
 
 
     public void disableButtons(){
 
-        timerTextView.setText("0:00");
+        timerTextView.setText("00");
         resultTextView.setText("Your Score: "+score+"/"+ noOfQuestionsAsked);
         button0.setEnabled(false);
         button1.setEnabled(false);
@@ -196,7 +196,7 @@ public class MainActivity extends AppCompatActivity {
         score = 0;
         noOfQuestionsAsked = 0;
         resultText = "";
-        timerTextView.setText("30s");
+        timerTextView.setText("30");
         scoreTextView.setText("0");
         resultTextView.setText("");
         button0.setEnabled(true);
