@@ -27,17 +27,18 @@
 
     <TextView
         android:id="@+id/timerTextView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginLeft="32dp"
         android:layout_marginTop="32dp"
         android:background="@drawable/round_textview"
         android:gravity="center"
-        android:text="30s"
+        android:text="30"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="36sp"
         android:visibility="invisible"
+        app:layout_constraintDimensionRatio="h,1:1"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

@@ -3,6 +3,7 @@ package com.example.brainteaser;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -46,8 +47,6 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<Integer> answersArrayList = new ArrayList<Integer>(Arrays.asList(0,0,0,0));
 
     CountDownTimer timer;
-
-
 
     public void startTimer(){
 
