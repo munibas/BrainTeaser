@@ -59,7 +59,7 @@ public class MainActivity extends AppCompatActivity {
                 Log.i("Seconds Left",String.valueOf(l/1000));
                 UpdateTimer((int) l/1000);
 
-                /* timerTextView.setText((int)l/1000+"s");*/
+               
             }
 
             @Override
